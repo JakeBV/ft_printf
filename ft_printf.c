@@ -13,41 +13,38 @@
 #include "includes/ft_printf.h"
 #include "includes/libft.h"
 #include "includes/ft_parser.h"
+#include "includes/ft_processor.h"
 
-void	ft_putchr(char c)
+
+void		create_struct(t_parser *data)
 {
-	write(1, &c, 1);
+	data->flag = 0;
+	data->width = 0;
+	data->precision = 0;
+	data->count = 0;
 }
+
 
 int		ft_printf(const char *text, ...)
 {
 	va_list	argptr;
-	int		i;
-	char	*s;
 	t_parser data;
 
-
 	va_start(argptr, text);
-	i = 0;
+	create_struct(&data);
 	while (*text)
 	{
 		if (*text != '%')
+		{
 			ft_putchr(*text);
+			data.count++;
+		}
 		else
 		{
-			create_struct(&data);
-			s = find_specifier((char *)text);
-			s = parse_flags(s, &data);
-			s = parse_width(s, &data, argptr);
-			s = parse_precision(s, &data, argptr);
-			s = parse_size(s, &data);
-			s = parse_type(s, &data, argptr);
-			printf("flag == %c, width == %d, precision == %d, type == %c, size == %d, content == %c\n\n%s\n\n",
-		  data.flag, data.width, data.precision, data.type, data.size, data.c, s);
+			text = processor((char *) text, &data, argptr);
 		}
-		i++;
 		text++;
 	}
 	va_end(argptr);
-	return (i);
+	return (data.count);
 }
