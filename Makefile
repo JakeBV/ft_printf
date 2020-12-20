@@ -6,7 +6,13 @@ RM			= rm -f
 
 CFLAGS		= -Wall -Wextra -Werror
 
-SRCS		= ft_parser.c ft_printf.c ft_struct_worker.c ft_typing.c ft_typing_char.c
+SRCS		= ft_parser.c \
+              ft_printf.c \
+              ft_typing.c \
+              ft_typing_char.c \
+              ft_typing_string.c \
+			  ft_typing_digit.c \
+			  ft_utils.c ft_typing_hex.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -16,7 +22,6 @@ OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
 	${CC} ${CFLAGS} -I. -c $< -o ${<:.c=.o}
 
 $(NAME):	${OBJS}
-	${MAKE} all -C libft/
 	ar rc ${NAME} ${OBJS}
 	ranlib ${NAME}
 

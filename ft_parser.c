@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mstoneho <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/20 20:03:34 by mstoneho          #+#    #+#             */
+/*   Updated: 2020/12/20 20:03:36 by mstoneho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 char	*ft_parse_flags(char *str_after_specifier, t_ft_printf *data)
 {
@@ -41,7 +52,7 @@ char	*ft_parse_width(char *str_after_flag, t_ft_printf *data, va_list argptr)
 }
 
 char	*ft_parse_precision(char *str_after_width, t_ft_printf *data,
-					  va_list argptr)
+															va_list argptr)
 {
 	int point;
 
@@ -65,9 +76,19 @@ char	*ft_parse_type(char *str_after_precision, t_ft_printf *data)
 {
 	if (*str_after_precision == 'c')
 		data->type = 'c';
-	//else if (*str_after_precision == 's')
-	//	data->type = 's';
-	//else if (*str_after_precision == 'd' || *str_after_precision == 'i')
-	//	data->type = 'd';
+	else if (*str_after_precision == 's')
+		data->type = 's';
+	else if (*str_after_precision == 'd' || *str_after_precision == 'i')
+		data->type = 'd';
+	else if (*str_after_precision == 'u')
+		data->type = 'u';
+	else if (*str_after_precision == 'x')
+		data->type = 'x';
+	else if (*str_after_precision == 'X')
+		data->type = 'X';
+	else if (*str_after_precision == 'p')
+		data->type = 'p';
+	else if (*str_after_precision == '%')
+		data->type = '%';
 	return (str_after_precision);
 }

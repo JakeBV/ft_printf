@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_typing_hex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mstoneho <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 16:07:44 by mstoneho          #+#    #+#             */
-/*   Updated: 2020/11/02 05:26:41 by mstoneho         ###   ########.fr       */
+/*   Created: 2020/12/20 20:45:09 by mstoneho          #+#    #+#             */
+/*   Updated: 2020/12/20 20:45:10 by mstoneho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_print_hex(t_ft_printf *data, va_list argptr)
 {
-	while (NULL != s && *s)
-	{
-		if (*(char*)s++ == c)
-			return ((char*)--s);
-	}
-	return (c == '\0' ? (char*)s : NULL);
+	unsigned long int	nbr;
+	int					len;
+
+	nbr = va_arg(argptr, unsigned long int);
+	len = ft_digit_len(nbr, 16);
+	ft_digits_processor(data, nbr, len, 0);
 }
