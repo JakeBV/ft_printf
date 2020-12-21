@@ -24,6 +24,11 @@ char	*ft_parser(char *str, t_ft_printf *data, va_list argptr)
 		data->width = -data->width;
 		data->flag = '-';
 	}
+	if (data->precision < 0)
+	{
+		data->point = 0;
+		data->precision = 0;
+	}
 	ft_processor(data, argptr);
 	ft_fill_struct(data, data->count);
 	return (str);
@@ -41,6 +46,19 @@ void	ft_processor(t_ft_printf *data, va_list argptr)
 		ft_print_unsigned(data, argptr);
 	else if (data->type == 'x' || data->type == 'X' || data->type == 'p')
 		ft_print_hex(data, argptr);
+}
+
+void	ft_digits_processor(t_ft_printf *data, unsigned int nbr, int len,
+							int negative)
+{
+	if (negative)
+		data->width--;
+	if (!nbr && !data->precision && data->point)
+		data->count += print_width_and_precision(data->width, 0, ' ');
+	else if (data->flag == '-')
+		ft_minus_digit(data, nbr, len, negative);
+	else
+		ft_zero_digit(data, nbr, len, negative);
 }
 
 char	*ft_find_specifier(char *str)

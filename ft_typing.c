@@ -32,7 +32,7 @@ int		ft_putstr(char *str, int len)
 	return (i);
 }
 
-int		ft_putnbr(unsigned long int n)
+int		ft_putnbr(unsigned int n)
 {
 	char	d;
 	int		i;
@@ -45,8 +45,7 @@ int		ft_putnbr(unsigned long int n)
 	return (i);
 }
 
-void	ft_puthex(t_ft_printf *data, unsigned long int nbr,
-									unsigned long int nbrcpy)
+void	ft_puthex(t_ft_printf *data, unsigned int nbr, unsigned int nbrcpy)
 {
 	unsigned int	mod;
 	char			*base;

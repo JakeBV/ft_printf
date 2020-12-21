@@ -21,7 +21,7 @@ void	ft_print_string(t_ft_printf *data, va_list argptr)
 	if (str == NULL)
 		str = "(null)";
 	len = ft_strlen(str);
-	if (data->precision > 0 && len > data->precision)
+	if (len > data->precision && data->point)
 		len = data->precision;
 	if (data->flag == '-')
 	{

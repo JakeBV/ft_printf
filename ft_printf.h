@@ -33,8 +33,8 @@ typedef struct		s_ft_printf
 
 int					ft_printf(const char *text, ...);
 int					ft_putstr(char *str, int len);
-int					ft_putnbr(unsigned long int n);
-int					ft_digit_len(long long int n, int numsys);
+int					ft_putnbr(unsigned int n);
+int					ft_digit_len(unsigned int n, int numsys);
 int					print_width_and_precision(int width_or_precision, int i,
 										char symbol);
 long long int		ft_atoi(char *str);
@@ -59,16 +59,17 @@ void				ft_print_char(t_ft_printf *data, va_list argptr);
 void				ft_print_string(t_ft_printf *data, va_list argptr);
 void				ft_print_digit(t_ft_printf *data, va_list argptr);
 void				ft_digits_processor(t_ft_printf *data,
-								unsigned long int nbr, int len, int negative);
+								unsigned int nbr, int len, int negative);
 void				ft_minus_digit(t_ft_printf *data, unsigned long int nbr,
 										int len, int negative);
-void				ft_zero_digit(t_ft_printf *data, unsigned long int nbr,
-										int len, int negative);
-void				ft_without_flags(t_ft_printf *data, unsigned int long nbr,
+void				ft_zero_digit(t_ft_printf *data, unsigned int nbr,
 										int len, int negative);
 void				ft_print_unsigned(t_ft_printf *data, va_list argptr);
 void				ft_print_hex(t_ft_printf *data, va_list argptr);
-void				ft_puthex(t_ft_printf *data, unsigned long int nbr,
-										unsigned long int nbrcpy);
+void				ft_puthex(t_ft_printf *data, unsigned int nbr,
+										unsigned int nbrcpy);
+void				ft_negative_processor(t_ft_printf *data, int negative);
+void				ft_print_processor(t_ft_printf *data, unsigned long int nbr);
+void				ft_width_processor(t_ft_printf *data, int len);
 
 #endif

@@ -15,7 +15,7 @@
 void	ft_print_hex(t_ft_printf *data, va_list argptr)
 {
 	unsigned long int	nbr;
-	int					len;
+	int				len;
 
 	nbr = va_arg(argptr, unsigned long int);
 	len = ft_digit_len(nbr, 16);

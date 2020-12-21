@@ -12,24 +12,11 @@
 
 #include "ft_printf.h"
 
-int				ft_digit_len(long long int n, int numsys)
+int				ft_digit_len(unsigned int n, int numsys)
 {
-	if (n < (long long int)numsys)
+	if (n < (unsigned int)numsys)
 		return (1);
 	return (1 + ft_digit_len(n / numsys, numsys));
-}
-
-void	ft_digits_processor(t_ft_printf *data, unsigned long int nbr, int len,
-							int negative)
-{
-	if (negative)
-		data->width--;
-	if (!nbr && !data->precision && data->point)
-		data->count += print_width_and_precision(data->width, 0, ' ');
-	else if (data->flag == '-')
-		ft_minus_digit(data, nbr, len, negative);
-	else
-		ft_zero_digit(data, nbr, len, negative);
 }
 
 void			ft_fill_struct(t_ft_printf *data, int count)

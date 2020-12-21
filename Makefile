@@ -8,6 +8,7 @@ CFLAGS		= -Wall -Wextra -Werror
 
 SRCS		= ft_parser.c \
               ft_printf.c \
+              ft_processors.c \
               ft_typing.c \
               ft_typing_char.c \
               ft_typing_string.c \

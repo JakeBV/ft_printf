@@ -28,7 +28,7 @@ void	ft_print_char(t_ft_printf *data, va_list argptr)
 	else
 	{
 		s = ' ';
-		if (data->type == '%')
+		if (data->type == '%' && data->flag == '0')
 			s = '0';
 		data->count += print_width_and_precision(data->width - 1, 1, s);
 		ft_putchar(c);
