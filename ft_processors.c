@@ -21,7 +21,7 @@ void	ft_negative_processor(t_ft_printf *data, int negative)
 	}
 }
 
-void 	ft_print_processor(t_ft_printf *data, unsigned long int nbr)
+void	ft_print_processor(t_ft_printf *data, unsigned long int nbr)
 {
 	if (data->type == 'd' || data->type == 'u')
 		data->count += ft_putnbr(nbr);
@@ -29,14 +29,15 @@ void 	ft_print_processor(t_ft_printf *data, unsigned long int nbr)
 	{
 		if (data->type == 'p')
 		{
-			data->width -= 2;
 			data->count += ft_putstr("0x", 2);
+			ft_puthex(data, data->pointer, data->pointer);
 		}
-		ft_puthex(data, nbr, nbr);
+		else
+			ft_puthex(data, nbr, nbr);
 	}
 }
 
-void 	ft_width_processor(t_ft_printf *data, int len)
+void	ft_width_processor(t_ft_printf *data, int len)
 {
 	if (data->width > data->precision && data->precision < len)
 		data->width = data->width - len;

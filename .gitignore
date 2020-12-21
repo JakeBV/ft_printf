@@ -1,4 +1,5 @@
 main.c
+main.b
 a.out
 cmake-build-debug
 CMakeLists.txt

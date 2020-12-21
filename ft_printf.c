@@ -24,6 +24,8 @@ char	*ft_parser(char *str, t_ft_printf *data, va_list argptr)
 		data->width = -data->width;
 		data->flag = '-';
 	}
+	if (data->type == 'p')
+		data->width -= 2;
 	if (data->precision < 0)
 	{
 		data->point = 0;

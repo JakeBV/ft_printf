@@ -14,9 +14,12 @@
 
 char	*ft_parse_flags(char *str_after_specifier, t_ft_printf *data)
 {
-	if (ft_strchr(FLAGS, *str_after_specifier))
+	while (ft_strchr(FLAGS, *str_after_specifier))
 	{
-		data->flag = *str_after_specifier;
+		if (*str_after_specifier == '-')
+			data->flag = *str_after_specifier;
+		if (data->flag == 0 && *str_after_specifier == '0')
+			data->flag = '0';
 		str_after_specifier++;
 	}
 	return (str_after_specifier);
@@ -24,7 +27,7 @@ char	*ft_parse_flags(char *str_after_specifier, t_ft_printf *data)
 
 char	*ft_digit_parse(char *str, t_ft_printf *data, int width)
 {
-	int n;
+	long long n;
 
 	if (ft_strchr(DIGITS, *str))
 	{
