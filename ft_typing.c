@@ -51,13 +51,13 @@ void	ft_puthex(t_ft_printf *data, unsigned long long int nbr,
 	unsigned int	mod;
 	char			*base;
 
-	base = HEXUP;
+	base = HEX_UP;
 	if (data->type == 'x' || data->type == 'p')
-		base = HEXDOWN;
+		base = HEX_DOWN;
 	if (nbr >= 10)
 	{
 		mod = nbr % 16;
-		nbr = nbr / 16;
+		nbr /= 16;
 		ft_puthex(data, nbr, nbrcpy);
 		ft_putchar(base[mod]);
 		data->count++;
@@ -69,13 +69,13 @@ void	ft_puthex(t_ft_printf *data, unsigned long long int nbr,
 	}
 }
 
-int		print_width_and_precision(int width_or_precision, int i, char symbol)
+int		ft_print_width(int width, int i, char symbol)
 {
-	while (width_or_precision > 0)
+	while (width > 0)
 	{
 		ft_putchar(symbol);
 		i++;
-		width_or_precision--;
+		width--;
 	}
 	return (i);
 }

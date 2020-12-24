@@ -12,9 +12,29 @@
 
 #include "ft_printf.h"
 
+char	*ft_parser(char *str, t_ft_printf *data, va_list argptr)
+{
+	str = ft_parse_flags(str, data);
+	str = ft_parse_width(str, data, argptr);
+	str = ft_parse_precision(str, data, argptr);
+	if (data->width < 0)
+	{
+		data->width = -data->width;
+		data->flag = '-';
+	}
+	if (data->precision < 0)
+	{
+		data->dot = 0;
+		data->precision = 0;
+	}
+	str = ft_processor(str, data, argptr);
+	ft_fill_struct(data, data->count);
+	return (str);
+}
+
 char	*ft_parse_flags(char *str_after_specifier, t_ft_printf *data)
 {
-	while (ft_strchr(FLAGS, *str_after_specifier))
+	while (ft_strchr("-0", *str_after_specifier))
 	{
 		if (*str_after_specifier == '-')
 			data->flag = *str_after_specifier;
@@ -27,7 +47,7 @@ char	*ft_parse_flags(char *str_after_specifier, t_ft_printf *data)
 
 char	*ft_digit_parse(char *str, t_ft_printf *data, int width)
 {
-	long long n;
+	long long int n;
 
 	if (ft_strchr(DIGITS, *str))
 	{
@@ -57,41 +77,16 @@ char	*ft_parse_width(char *str_after_flag, t_ft_printf *data, va_list argptr)
 char	*ft_parse_precision(char *str_after_width, t_ft_printf *data,
 															va_list argptr)
 {
-	int point;
-
-	point = 0;
 	if (*str_after_width == '.' && *(str_after_width + 1) == '*')
 	{
 		data->precision = va_arg(argptr, int);
 		str_after_width += 2;
-		point = 1;
+		data->dot = 1;
 	}
 	else if (*str_after_width == '.')
 	{
 		str_after_width = ft_digit_parse(++str_after_width, data, 0);
-		point = 1;
+		data->dot = 1;
 	}
-	data->point = point;
 	return (str_after_width);
-}
-
-char	*ft_parse_type(char *str_after_precision, t_ft_printf *data)
-{
-	if (*str_after_precision == 'c')
-		data->type = 'c';
-	else if (*str_after_precision == 's')
-		data->type = 's';
-	else if (*str_after_precision == 'd' || *str_after_precision == 'i')
-		data->type = 'd';
-	else if (*str_after_precision == 'u')
-		data->type = 'u';
-	else if (*str_after_precision == 'x')
-		data->type = 'x';
-	else if (*str_after_precision == 'X')
-		data->type = 'X';
-	else if (*str_after_precision == 'p')
-		data->type = 'p';
-	else if (*str_after_precision == '%')
-		data->type = '%';
-	return (str_after_precision);
 }

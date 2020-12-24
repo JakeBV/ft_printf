@@ -14,62 +14,62 @@
 
 void	ft_print_digit(t_ft_printf *data, va_list argptr)
 {
-	int				len;
 	long int		nbr;
-	int				negative;
 
 	nbr = va_arg(argptr, int);
-	negative = 0;
 	if (nbr < 0)
 	{
 		nbr = -nbr;
-		negative = 1;
+		data->is_negative = 1;
 	}
-	len = ft_digit_len(nbr, 10);
-	ft_digits_processor(data, nbr, len, negative);
+	data->digit = nbr;
+	data->len = ft_digit_len(nbr, 10);
+	ft_digits_processor(data);
 }
 
 void	ft_print_unsigned(t_ft_printf *data, va_list argptr)
 {
-	unsigned int	nbr;
-	int				len;
-
-	nbr = va_arg(argptr, unsigned int);
-	len = ft_digit_len(nbr, 10);
-	ft_digits_processor(data, nbr, len, 0);
+	data->digit = va_arg(argptr, unsigned int);
+	data->len = ft_digit_len(data->digit, 10);
+	ft_digits_processor(data);
 }
 
-void	ft_minus_digit(t_ft_printf *data, unsigned long int nbr, int len,
-															int negative)
+int		ft_digit_len(unsigned int n, unsigned int numsys)
 {
-	ft_negative_processor(data, negative);
-	data->count += print_width_and_precision(data->precision - len,
-							0, '0');
-	ft_print_processor(data, nbr);
-	ft_width_processor(data, len);
-	data->count += print_width_and_precision(data->width, 0, ' ');
+	if (n < numsys)
+		return (1);
+	return (1 + ft_digit_len(n / numsys, numsys));
 }
 
-void	ft_zero_digit(t_ft_printf *data, unsigned int nbr, int len,
-															int negative)
+void	ft_minus_digit(t_ft_printf *data)
+{
+	ft_negative_processor(data);
+	data->count += ft_print_width(data->precision - data->len,
+							0, '0');
+	ft_print_processor(data);
+	ft_width_processor(data);
+	data->count += ft_print_width(data->width, 0, ' ');
+}
+
+void	ft_zero_digit(t_ft_printf *data)
 {
 	char s;
 
-	ft_width_processor(data, len);
-	if (!data->precision && !data->point && data->flag != 0)
+	ft_width_processor(data);
+	if (!data->precision && !data->dot && data->flag != 0)
 		s = '0';
 	else
 		s = ' ';
-	if (data->flag == '0' && !data->point)
+	if (data->flag == '0' && !data->dot)
 	{
-		ft_negative_processor(data, negative);
-		data->count += print_width_and_precision(data->width, 0, s);
+		ft_negative_processor(data);
+		data->count += ft_print_width(data->width, 0, s);
 	}
 	else
 	{
-		data->count += print_width_and_precision(data->width, 0, s);
-		ft_negative_processor(data, negative);
+		data->count += ft_print_width(data->width, 0, s);
+		ft_negative_processor(data);
 	}
-	data->count += print_width_and_precision(data->precision - len, 0, '0');
-	ft_print_processor(data, nbr);
+	data->count += ft_print_width(data->precision - data->len, 0, '0');
+	ft_print_processor(data);
 }

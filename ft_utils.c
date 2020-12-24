@@ -12,22 +12,18 @@
 
 #include "ft_printf.h"
 
-int				ft_digit_len(unsigned int n, int numsys)
-{
-	if (n < (unsigned int)numsys)
-		return (1);
-	return (1 + ft_digit_len(n / numsys, numsys));
-}
-
 void			ft_fill_struct(t_ft_printf *data, int count)
 {
 	data->flag = 0;
 	data->width = 0;
 	data->precision = 0;
+	data->dot = 0;
+	data->len = 0;
+	data->is_negative = 0;
 	data->count = count;
 }
 
-long long int	ft_atoi(char *str)
+long long int	ft_atoi(const char *str)
 {
 	int				i;
 	int				p;

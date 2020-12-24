@@ -15,16 +15,20 @@
 void	ft_print_hex(t_ft_printf *data, va_list argptr)
 {
 	unsigned long long int	nbr;
-	int						len;
 
 	nbr = va_arg(argptr, unsigned long long int);
-	len = ft_digit_len(nbr, 16);
 	if (data->type == 'p')
 	{
+		data->width -= 2;
 		data->pointer = nbr;
-		len = ft_hex_len(data->pointer);
+		data->len = ft_hex_len(data->pointer);
 	}
-	ft_digits_processor(data, nbr, len, 0);
+	else
+	{
+		data->len = ft_digit_len(nbr, 16);
+		data->digit = nbr;
+	}
+	ft_digits_processor(data);
 }
 
 int		ft_hex_len(unsigned long long int n)

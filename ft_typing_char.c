@@ -23,14 +23,14 @@ void	ft_print_char(t_ft_printf *data, va_list argptr)
 	if (data->flag == '-')
 	{
 		ft_putchar(c);
-		data->count += print_width_and_precision(data->width - 1, 1, ' ');
+		data->count += ft_print_width(data->width - 1, 1, ' ');
 	}
 	else
 	{
 		s = ' ';
 		if (data->type == '%' && data->flag == '0')
 			s = '0';
-		data->count += print_width_and_precision(data->width - 1, 1, s);
+		data->count += ft_print_width(data->width - 1, 1, s);
 		ft_putchar(c);
 	}
 }
