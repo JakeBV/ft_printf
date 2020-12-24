@@ -4,7 +4,6 @@ a.out
 cmake-build-debug
 CMakeLists.txt
 codeStyleConfig.xml
-en.subject.pdf
 .idea
 .*
 .DS_Store
