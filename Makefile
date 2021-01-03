@@ -17,8 +17,6 @@ SRCS		= ft_parser.c \
 
 OBJS		= ${SRCS:.c=.o}
 
-OBJS_BONUS	= ${SRCS_BONUS:.c=.o}
-
 .c.o:
 	${CC} ${CFLAGS} -I. -c $< -o ${<:.c=.o}
 
@@ -27,7 +25,7 @@ $(NAME):	${OBJS}
 	ranlib ${NAME}
 
 clean:
-	${RM} ${OBJS} ${OBJS_BONUS}
+	${RM} ${OBJS}
 
 fclean: clean
 	${RM} ${NAME}
